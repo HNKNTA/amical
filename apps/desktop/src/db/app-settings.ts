@@ -78,6 +78,7 @@ const defaultSettings: AppSettingsData = {
     showWidgetWhileInactive: true,
     showInDock: true,
     muteSystemAudio: true,
+    muteDictationSounds: false,
     autoDictateOnNewNote: false,
     keepTranscriptInClipboard: false,
   },
@@ -87,6 +88,10 @@ const defaultSettings: AppSettingsData = {
     confidenceThreshold: 0.8,
     enablePunctuation: true,
     enableTimestamps: false,
+  },
+  dictation: {
+    autoDetectEnabled: true,
+    selectedLanguage: "en",
   },
   recording: {
     defaultFormat: "wav",

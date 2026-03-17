@@ -25,6 +25,7 @@ export interface AppPreferences {
   showWidgetWhileInactive: boolean;
   showInDock: boolean;
   muteSystemAudio: boolean;
+  muteDictationSounds: boolean;
   autoDictateOnNewNote: boolean;
   keepTranscriptInClipboard: boolean;
 }
@@ -125,8 +126,14 @@ export class SettingsService extends EventEmitter {
   /**
    * Get dictation settings
    */
-  async getDictationSettings(): Promise<AppSettingsData["dictation"]> {
-    return await getSettingsSection("dictation");
+  async getDictationSettings(): Promise<
+    NonNullable<AppSettingsData["dictation"]>
+  > {
+    const dictationSettings = await getSettingsSection("dictation");
+    if (!dictationSettings) {
+      throw new Error("Dictation settings are missing");
+    }
+    return dictationSettings;
   }
 
   /**
@@ -304,6 +311,7 @@ export class SettingsService extends EventEmitter {
       showWidgetWhileInactive: preferences?.showWidgetWhileInactive ?? true,
       showInDock: preferences?.showInDock ?? true,
       muteSystemAudio: preferences?.muteSystemAudio ?? true,
+      muteDictationSounds: preferences?.muteDictationSounds ?? false,
       autoDictateOnNewNote: preferences?.autoDictateOnNewNote ?? false,
       keepTranscriptInClipboard: preferences?.keepTranscriptInClipboard ?? false,
     };
